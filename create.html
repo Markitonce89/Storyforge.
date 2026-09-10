@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Your Character | StoryForge AI</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 80% 15%, rgba(174, 70, 255, .18), transparent 35%),
+    #08070d;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+nav {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  border-bottom: 1px solid #25202d;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #c55cff;
+}
+
+nav a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 55px auto 80px;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.intro small {
+  color: #c55cff;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+
+.intro h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(40px, 8vw, 70px);
+  margin: 15px 0;
+}
+
+.intro p {
+  color: #aaa;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.form-card {
+  background: rgba(20, 17, 28, .95);
+  border: 1px solid #30283b;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 13px;
+  color: #ddd;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 15px;
+  background: #0d0b13;
+  border: 1px solid #393142;
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #c55cff;
+  box-shadow: 0 0 0 3px rgba(197,92,255,.1);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  margin-top: 30px;
+  padding: 17px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #9d3cff, #d84cff);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(190,70,255,.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.note {
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  margin-top: 18px;
+}
+
+@media (max-width: 650px) {
+  nav {
+    padding: 0 5%;
+  }
+
+  nav a {
+    display: none;
+  }
+
+  .container {
+    margin-top: 35px;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">StoryForge<span>AI</span></div>
+  <a href="index.html">← Back to StoryForge</a>
+</nav>
+
+<main class="container">
+
+  <section class="intro">
+    <small>CREATE YOUR CHARACTER</small>
+
+    <h1>Bring Them To Life.</h1>
+
+    <p>
+      Every unforgettable story starts with a character.
+      Build someone with a personality, history, dreams,
+      fears, and a world of their own.
+    </p>
+  </section>
+
+  <section class="form-card">
+
+    <form>
+
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Character Name</label>
+          <input type="text" placeholder="Example: Seianna Monroe">
+        </div>
+
+        <div class="field">
+          <label>Age</label>
+          <input type="number" placeholder="28">
+        </div>
+
+        <div class="field">
+          <label>Occupation</label>
+          <input type="text" placeholder="Example: Fashion Influencer">
+        </div>
+
+        <div class="field">
+          <label>Personality</label>
+          <input type="text" placeholder="Example: Confident, guarded, ambitious">
+        </div>
+
+        <div class="field full">
+          <label>Appearance</label>
+          <textarea placeholder="Describe their appearance, hair, eyes, clothing, build, distinctive features, etc."></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Backstory</label>
+          <textarea placeholder="Where did they come from? What happened in their past?"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Goals</label>
+          <textarea placeholder="What do they want most?"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Fears</label>
+          <textarea placeholder="What are they afraid of losing?"></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Style & Vibe</label>
+          <input type="text" placeholder="Example: Luxury streetwear, motorcycles, mysterious, cinematic">
+        </div>
+
+      </div>
+
+      <button type="button">
+        CREATE MY CHARACTER →
+      </button>
+
+      <div class="note">
+        Your character will become the foundation of your StoryForge universe.
+      </div>
+
+    </form>
+
+  </section>
+
+</main>
+
+</body>
+</html>
