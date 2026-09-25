@@ -1,474 +1,1269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StoryForge AI — Your Story. Your Character. Your Universe.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  <title>StoryForge AI — Your Story. Your Character. Your Universe.</title>
 
-html {
-  scroll-behavior: smooth;
-}
+  <meta
+    name="description"
+    content="StoryForge AI transforms your ideas into characters, stories, and entire fictional universes."
+  >
 
-body {
-  font-family: Arial, sans-serif;
-  background: #07070c;
-  color: white;
-  line-height: 1.6;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(7,7,12,0.94);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #252535;
-  padding: 16px 6%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-.logo {
-  font-size: 23px;
-  font-weight: 800;
-  letter-spacing: -1px;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #07070c;
+      color: #ffffff;
+      line-height: 1.6;
+    }
 
-.logo span {
-  color: #b86cff;
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-.navlinks {
-  display: flex;
-  gap: 22px;
-  align-items: center;
-}
+    /* =========================
+       NAVIGATION
+    ========================== */
 
-.navlinks a {
-  color: #ccc;
-  text-decoration: none;
-  font-size: 14px;
-}
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
 
-.navlinks a:hover {
-  color: white;
-}
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-.button {
-  display: inline-block;
-  padding: 13px 22px;
-  border-radius: 30px;
-  background: linear-gradient(135deg,#9d4edd,#e052ff);
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 8px 30px rgba(180,70,255,.25);
-}
+      padding: 18px 6%;
 
-.hero {
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  padding: 80px 7%;
-  background:
-    radial-gradient(circle at 80% 30%, rgba(145,50,220,.22), transparent 35%),
-    radial-gradient(circle at 20% 80%, rgba(70,30,180,.16), transparent 35%);
-}
+      background: rgba(7, 7, 12, 0.94);
+      backdrop-filter: blur(14px);
 
-.hero-content {
-  max-width: 850px;
-}
+      border-bottom: 1px solid #252535;
+    }
 
-.small {
-  color: #c77dff;
-  font-size: 14px;
-  letter-spacing: 4px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
+    .logo {
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
 
-h1 {
-  font-family: Georgia, serif;
-  font-size: clamp(46px, 8vw, 88px);
-  line-height: .98;
-  margin-bottom: 28px;
-}
+    .logo span {
+      color: #b86cff;
+    }
 
-h1 span {
-  color: #c77dff;
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
 
-.hero p {
-  color: #b9b9c5;
-  font-size: 20px;
-  max-width: 650px;
-  margin-bottom: 35px;
-}
+    .nav-links a {
+      color: #cfcfe0;
+      font-size: 0.95rem;
+      transition: 0.25s ease;
+    }
 
-section {
-  padding: 90px 7%;
-}
+    .nav-links a:hover {
+      color: #c77dff;
+    }
 
-.section-title {
-  text-align: center;
-  margin-bottom: 50px;
-}
+    .nav-button {
+      padding: 10px 18px;
+      border: 1px solid #b86cff;
+      border-radius: 8px;
+      color: #ffffff !important;
+      transition: 0.25s ease;
+    }
 
-.section-title h2 {
-  font-family: Georgia, serif;
-  font-size: 46px;
-  margin-bottom: 12px;
-}
+    .nav-button:hover {
+      background: #b86cff;
+      color: #07070c !important;
+    }
 
-.section-title p {
-  color: #9999a8;
-}
+    /* =========================
+       HERO
+    ========================== */
 
-.seianna {
-  background: linear-gradient(180deg,#0b0a12,#110c19);
-}
+    .hero {
+      min-height: 88vh;
 
-.character-box {
-  max-width: 1100px;
-  margin: auto;
-  border: 1px solid #342344;
-  border-radius: 28px;
-  padding: 50px;
-  background: rgba(255,255,255,.025);
-  box-shadow: 0 20px 70px rgba(0,0,0,.4);
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-.character-label {
-  color: #d084ff;
-  letter-spacing: 4px;
-  font-weight: bold;
-  font-size: 13px;
-  margin-bottom: 12px;
-}
+      text-align: center;
 
-.character-box h2 {
-  font-family: Georgia, serif;
-  font-size: clamp(38px,6vw,65px);
-  margin-bottom: 15px;
-}
+      padding: 100px 6%;
 
-.character-box p {
-  color: #b7b7c4;
-  max-width: 650px;
-  font-size: 18px;
-  margin-bottom: 25px;
-}
+      background:
+        radial-gradient(
+          circle at 50% 30%,
+          rgba(184, 108, 255, 0.16),
+          transparent 45%
+        ),
+        #07070c;
+    }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
+    .hero-content {
+      max-width: 950px;
+    }
 
-.tag {
-  border: 1px solid #49305b;
-  padding: 8px 14px;
-  border-radius: 20px;
-  color: #d6b7e8;
-  font-size: 13px;
-}
+    .eyebrow {
+      display: inline-block;
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 22px;
-  max-width: 1100px;
-  margin: auto;
-}
+      margin-bottom: 22px;
 
-.card {
-  background: #101018;
-  border: 1px solid #292938;
-  border-radius: 22px;
-  padding: 32px;
-  transition: .25s;
-}
+      padding: 8px 15px;
 
-.card:hover {
-  transform: translateY(-5px);
-  border-color: #8e44ad;
-}
+      border: 1px solid #343447;
+      border-radius: 50px;
 
-.card-icon {
-  font-size: 35px;
-  margin-bottom: 18px;
-}
+      color: #c77dff;
 
-.card h3 {
-  font-size: 23px;
-  margin-bottom: 10px;
-}
+      font-size: 0.8rem;
+      font-weight: 700;
 
-.card p {
-  color: #9999a8;
-}
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
 
-.steps {
-  max-width: 1000px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 15px;
-}
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 0.98;
+      letter-spacing: -4px;
 
-.step {
-  text-align: center;
-  padding: 25px 15px;
-}
+      margin-bottom: 28px;
+    }
 
-.number {
-  width: 50px;
-  height: 50px;
-  margin: 0 auto 15px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #191122;
-  border: 1px solid #73468f;
-  color: #d08aff;
-  font-weight: bold;
-}
+    .hero h1 span {
+      color: #c77dff;
+    }
 
-.step h3 {
-  margin-bottom: 7px;
-}
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 38px;
 
-.step p {
-  color: #888896;
-  font-size: 14px;
-}
+      color: #b9b9c9;
 
-.cta {
-  text-align: center;
-  padding: 100px 7%;
-  background:
-    radial-gradient(circle, rgba(160,70,230,.22), transparent 50%),
-    #0b0911;
-}
+      font-size: 1.15rem;
+    }
 
-.cta h2 {
-  font-family: Georgia, serif;
-  font-size: clamp(40px,6vw,65px);
-  margin-bottom: 20px;
-}
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
 
-.cta p {
-  color: #aaa;
-  max-width: 600px;
-  margin: 0 auto 30px;
-}
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
-footer {
-  border-top: 1px solid #242430;
-  padding: 30px 7%;
-  color: #777;
-  text-align: center;
-  font-size: 13px;
-}
+      min-width: 180px;
+      padding: 15px 24px;
 
-@media(max-width:800px) {
-  .navlinks {
-    display: none;
-  }
+      border-radius: 9px;
 
-  .hero {
-    min-height: 80vh;
-    padding-top: 70px;
-  }
+      background: #b86cff;
+      color: #07070c;
 
-  .hero p {
-    font-size: 17px;
-  }
+      font-weight: 800;
 
-  section {
-    padding: 70px 5%;
-  }
+      transition: 0.25s ease;
+    }
 
-  .cards {
-    grid-template-columns: 1fr;
-  }
+    .button:hover {
+      transform: translateY(-2px);
+      background: #d19aff;
+      box-shadow: 0 10px 35px rgba(184, 108, 255, 0.2);
+    }
 
-  .steps {
-    grid-template-columns: 1fr 1fr;
-  }
+    .button.secondary {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid #414155;
+    }
 
-  .character-box {
-    padding: 30px;
-  }
-}
+    .button.secondary:hover {
+      border-color: #b86cff;
+      background: rgba(184, 108, 255, 0.08);
+    }
 
-@media(max-width:480px) {
-  .steps {
-    grid-template-columns: 1fr;
-  }
+    /* =========================
+       SECTION
+    ========================== */
 
-  h1 {
-    font-size: 48px;
-  }
-}
-</style>
+    section {
+      padding: 100px 6%;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin: 0 auto 55px;
+
+      text-align: center;
+    }
+
+    .section-heading .label {
+      color: #b86cff;
+
+      font-size: 0.8rem;
+      font-weight: 800;
+
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      margin: 12px 0 16px;
+
+      font-size: clamp(2rem, 5vw, 3.7rem);
+      line-height: 1.05;
+    }
+
+    .section-heading p {
+      color: #a9a9b9;
+    }
+
+    /* =========================
+       METHOD
+    ========================== */
+
+    .method {
+      background: #0b0a12;
+      border-top: 1px solid #171722;
+      border-bottom: 1px solid #171722;
+    }
+
+    .steps {
+      max-width: 1100px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      padding: 30px;
+
+      background: #10101a;
+
+      border: 1px solid #252535;
+      border-radius: 14px;
+
+      transition: 0.25s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-5px);
+      border-color: #7d4ba8;
+    }
+
+    .step-number {
+      color: #b86cff;
+
+      font-size: 0.8rem;
+      font-weight: 800;
+
+      letter-spacing: 2px;
+    }
+
+    .step h3 {
+      margin: 15px 0 10px;
+      font-size: 1.35rem;
+    }
+
+    .step p {
+      color: #9d9dac;
+      font-size: 0.95rem;
+    }
+
+    /* =========================
+       FEATURES
+    ========================== */
+
+    .features {
+      max-width: 1150px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      padding: 32px;
+
+      min-height: 260px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(184, 108, 255, 0.09),
+          rgba(255, 255, 255, 0.015)
+        );
+
+      border: 1px solid #272737;
+      border-radius: 16px;
+
+      transition: 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: #8d54bd;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 22px;
+
+      border-radius: 12px;
+
+      background: rgba(184, 108, 255, 0.12);
+
+      color: #c77dff;
+
+      font-size: 1.3rem;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 12px;
+      font-size: 1.35rem;
+    }
+
+    .feature-card p {
+      color: #9d9dac;
+    }
+
+    .feature-link {
+      display: inline-block;
+
+      margin-top: 20px;
+
+      color: #c77dff;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* =========================
+       AI SHOWCASE
+    ========================== */
+
+    .showcase {
+      background:
+        radial-gradient(
+          circle at 20% 50%,
+          rgba(184, 108, 255, 0.08),
+          transparent 35%
+        ),
+        #07070c;
+    }
+
+    .showcase-box {
+      max-width: 1100px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      overflow: hidden;
+
+      border: 1px solid #292939;
+      border-radius: 20px;
+
+      background: #0e0e17;
+    }
+
+    .showcase-content {
+      padding: 55px;
+    }
+
+    .showcase-content h2 {
+      margin: 12px 0 18px;
+
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.05;
+    }
+
+    .showcase-content p {
+      color: #a7a7b7;
+      margin-bottom: 25px;
+    }
+
+    .showcase-list {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+
+    .showcase-list li {
+      margin: 12px 0;
+      color: #d5d5df;
+    }
+
+    .showcase-list li::before {
+      content: "✦";
+      margin-right: 10px;
+      color: #c77dff;
+    }
+
+    .showcase-visual {
+      min-height: 450px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 40px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(199, 125, 255, 0.22),
+          transparent 55%
+        ),
+        #0a0910;
+    }
+
+    .universe-card {
+      width: 100%;
+      max-width: 360px;
+
+      padding: 30px;
+
+      border: 1px solid #39394d;
+      border-radius: 18px;
+
+      background: rgba(13, 13, 23, 0.85);
+
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    .universe-card small {
+      color: #9f9faf;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .universe-card h3 {
+      margin: 12px 0 18px;
+      font-size: 2rem;
+    }
+
+    .universe-line {
+      height: 1px;
+      margin: 18px 0;
+      background: #303041;
+    }
+
+    .universe-item {
+      display: flex;
+      justify-content: space-between;
+
+      margin: 10px 0;
+
+      color: #bdbdca;
+      font-size: 0.9rem;
+    }
+
+    .universe-item span:last-child {
+      color: #c77dff;
+    }
+
+    /* =========================
+       GALLERY PREVIEW
+    ========================== */
+
+    .gallery-preview {
+      background: #0b0a12;
+      border-top: 1px solid #171722;
+    }
+
+    .gallery-grid {
+      max-width: 1100px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .gallery-card {
+      min-height: 240px;
+
+      display: flex;
+      align-items: flex-end;
+
+      padding: 24px;
+
+      border: 1px solid #292939;
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(199, 125, 255, 0.14),
+          rgba(20, 20, 30, 0.95)
+        );
+
+      transition: 0.25s ease;
+    }
+
+    .gallery-card:hover {
+      transform: scale(1.015);
+      border-color: #8d54bd;
+    }
+
+    .gallery-card h3 {
+      margin-bottom: 4px;
+    }
+
+    .gallery-card p {
+      color: #9999a9;
+      font-size: 0.85rem;
+    }
+
+    .gallery-cta {
+      text-align: center;
+      margin-top: 35px;
+    }
+
+    /* =========================
+       ABOUT
+    ========================== */
+
+    .about {
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .about p {
+      color: #a7a7b7;
+      font-size: 1.05rem;
+    }
+
+    /* =========================
+       CONTACT
+    ========================== */
+
+    .contact {
+      background: #0b0a12;
+      border-top: 1px solid #171722;
+    }
+
+    .contact-box {
+      max-width: 750px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .contact-box p {
+      color: #a7a7b7;
+      margin-bottom: 28px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      padding: 35px 6%;
+
+      border-top: 1px solid #252535;
+
+      background: #07070c;
+
+      text-align: center;
+    }
+
+    footer .footer-logo {
+      margin-bottom: 10px;
+
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    footer .footer-logo span {
+      color: #b86cff;
+    }
+
+    footer p {
+      color: #777787;
+      font-size: 0.85rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 900px) {
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .nav-links a {
+        font-size: 0.8rem;
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .showcase-box {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        min-height: 80vh;
+        padding-top: 70px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .showcase-content {
+        padding: 35px 25px;
+      }
+
+      .showcase-visual {
+        min-height: 350px;
+      }
+
+      section {
+        padding: 75px 5%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="logo">StoryForge<span>AI</span></div>
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
 
-  <div class="navlinks">
-    <a href="#characters">Characters</a>
-    <a href="#stories">Stories</a>
-    <a href="#create">Create</a>
-  </div>
+  <nav>
 
-  <a class="button" href="#create">Create Free</a>
-</nav>
+    <a href="index.html" class="logo">
+      StoryForge<span>AI</span>
+    </a>
 
-<section class="hero">
-  <div class="hero-content">
-    <div class="small">WELCOME TO STORYFORGE AI</div>
+    <ul class="nav-links">
 
-    <h1>
-      YOUR STORY.<br>
-      YOUR <span>CHARACTER.</span><br>
-      YOUR UNIVERSE.
-    </h1>
+      <li>
+        <a href="index.html">Home</a>
+      </li>
+
+      <li>
+        <a href="create.html">Create Character</a>
+      </li>
+
+      <li>
+        <a href="story.html">Create Story</a>
+      </li>
+
+      <li>
+        <a href="world.html">World Builder</a>
+      </li>
+
+      <li>
+        <a href="gallery.html">Gallery</a>
+      </li>
+
+      <li>
+        <a href="#about">About</a>
+      </li>
+
+      <li>
+        <a href="#contact">Contact</a>
+      </li>
+
+    </ul>
+
+  </nav>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <header class="hero">
+
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        AI-Powered Story Creation
+      </div>
+
+      <h1>
+        Your Story.<br>
+        Your Character.<br>
+        <span>Your Universe.</span>
+      </h1>
+
+      <p>
+        Turn one idea into an entire universe.
+        Create characters, generate stories, build worlds,
+        and bring your imagination to life with StoryForge AI.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="create.html" class="button">
+          START CREATING →
+        </a>
+
+        <a href="#method" class="button secondary">
+          EXPLORE STORYFORGE
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       STORYFORGE METHOD
+  ========================== -->
+
+  <section class="method" id="method">
+
+    <div class="section-heading">
+
+      <div class="label">
+        The StoryForge Method
+      </div>
+
+      <h2>
+        From One Idea to an Entire Universe
+      </h2>
+
+      <p>
+        StoryForge AI gives you the tools to transform
+        imagination into something you can actually build.
+      </p>
+
+    </div>
+
+
+    <div class="steps">
+
+      <div class="step">
+
+        <div class="step-number">
+          01
+        </div>
+
+        <h3>Create</h3>
+
+        <p>
+          Start with an idea, character, setting,
+          or simple spark of inspiration.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">
+          02
+        </div>
+
+        <h3>Generate</h3>
+
+        <p>
+          Let AI expand your ideas into detailed
+          characters, stories, and worlds.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">
+          03
+        </div>
+
+        <h3>Visualize</h3>
+
+        <p>
+          Turn your imagination into visual concepts
+          and memorable creations.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">
+          04
+        </div>
+
+        <h3>Share</h3>
+
+        <p>
+          Organize your creations and eventually
+          share your universe with others.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CREATION TOOLS
+  ========================== -->
+
+  <section>
+
+    <div class="section-heading">
+
+      <div class="label">
+        Your Creative Studio
+      </div>
+
+      <h2>
+        Build Anything You Can Imagine
+      </h2>
+
+      <p>
+        StoryForge is being designed as one creative
+        space for characters, stories, and worlds.
+      </p>
+
+    </div>
+
+
+    <div class="features">
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          ✦
+        </div>
+
+        <h3>
+          Character Creator
+        </h3>
+
+        <p>
+          Create detailed original characters with
+          personalities, appearances, backgrounds,
+          abilities, relationships, and stories.
+        </p>
+
+        <a href="create.html" class="feature-link">
+          CREATE A CHARACTER →
+        </a>
+
+      </div>
+
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          ✎
+        </div>
+
+        <h3>
+          Story Generator
+        </h3>
+
+        <p>
+          Give StoryForge an idea and let AI help
+          transform it into a story with characters,
+          scenes, dialogue, conflict, and narrative.
+        </p>
+
+        <a href="story.html" class="feature-link">
+          CREATE A STORY →
+        </a>
+
+      </div>
+
+
+      <div class="feature-card">
+
+        <div class="feature-icon">
+          ◈
+        </div>
+
+        <h3>
+          World Builder
+        </h3>
+
+        <p>
+          Build fictional worlds with locations,
+          history, cultures, factions, technology,
+          magic, conflicts, and unforgettable places.
+        </p>
+
+        <a href="world.html" class="feature-link">
+          BUILD A WORLD →
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       AI SHOWCASE
+  ========================== -->
+
+  <section class="showcase">
+
+    <div class="showcase-box">
+
+      <div class="showcase-content">
+
+        <div class="label">
+          Powered by AI
+        </div>
+
+        <h2>
+          Your Imagination Is the Starting Point.
+        </h2>
+
+        <p>
+          You don't need to know how to write an entire
+          universe. Start with what you have and let
+          StoryForge help develop the rest.
+        </p>
+
+        <ul class="showcase-list">
+
+          <li>
+            Generate original characters
+          </li>
+
+          <li>
+            Expand ideas into stories
+          </li>
+
+          <li>
+            Create detailed fictional worlds
+          </li>
+
+          <li>
+            Develop characters and relationships
+          </li>
+
+          <li>
+            Keep building your universe over time
+          </li>
+
+        </ul>
+
+        <a href="create.html" class="button">
+          CREATE YOUR FIRST CHARACTER
+        </a>
+
+      </div>
+
+
+      <div class="showcase-visual">
+
+        <div class="universe-card">
+
+          <small>
+            StoryForge Universe
+          </small>
+
+          <h3>
+            Project Aurora
+          </h3>
+
+          <div class="universe-line"></div>
+
+          <div class="universe-item">
+            <span>Characters</span>
+            <span>12</span>
+          </div>
+
+          <div class="universe-item">
+            <span>Stories</span>
+            <span>7</span>
+          </div>
+
+          <div class="universe-item">
+            <span>Worlds</span>
+            <span>3</span>
+          </div>
+
+          <div class="universe-item">
+            <span>Locations</span>
+            <span>28</span>
+          </div>
+
+          <div class="universe-line"></div>
+
+          <div class="universe-item">
+            <span>Status</span>
+            <span>BUILDING</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       GALLERY
+  ========================== -->
+
+  <section class="gallery-preview">
+
+    <div class="section-heading">
+
+      <div class="label">
+        The Gallery
+      </div>
+
+      <h2>
+        Imagine What You'll Create
+      </h2>
+
+      <p>
+        A place for your characters, stories,
+        worlds, and future creations.
+      </p>
+
+    </div>
+
+
+    <div class="gallery-grid">
+
+      <div class="gallery-card">
+
+        <div>
+
+          <h3>
+            Characters
+          </h3>
+
+          <p>
+            Original people from your universe.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="gallery-card">
+
+        <div>
+
+          <h3>
+            Worlds
+          </h3>
+
+          <p>
+            Places limited only by imagination.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="gallery-card">
+
+        <div>
+
+          <h3>
+            Stories
+          </h3>
+
+          <p>
+            Adventures waiting to be written.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="gallery-cta">
+
+      <a href="gallery.html" class="button secondary">
+        VIEW GALLERY →
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       ABOUT
+  ========================== -->
+
+  <section id="about">
+
+    <div class="about">
+
+      <div class="section-heading">
+
+        <div class="label">
+          About StoryForge
+        </div>
+
+        <h2>
+          Where Ideas Become Universes
+        </h2>
+
+      </div>
+
+      <p>
+        StoryForge AI is a creative platform designed to
+        help people turn simple ideas into characters,
+        stories, and entire fictional worlds.
+        The goal is simple: give creators the tools to
+        start creating without needing to begin with a
+        blank page.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CONTACT
+  ========================== -->
+
+  <section class="contact" id="contact">
+
+    <div class="contact-box">
+
+      <div class="section-heading">
+
+        <div class="label">
+          Contact
+        </div>
+
+        <h2>
+          Have an Idea for StoryForge?
+        </h2>
+
+      </div>
+
+      <p>
+        StoryForge is being built and expanded.
+        If you have an idea for a feature, improvement,
+        or creative tool, we'd love to hear it.
+      </p>
+
+      <!--
+        Replace the email address below with your
+        actual StoryForge contact email.
+      -->
+
+      <a
+        href="mailto:YOUR-EMAIL@example.com"
+        class="button"
+      >
+        CONTACT STORYFORGE
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-logo">
+      StoryForge<span>AI</span>
+    </div>
 
     <p>
-      Turn an idea into a character, a story, and an entire content universe.
-      Create characters that evolve, remember, and become part of your world.
+      Your Story. Your Character. Your Universe.
     </p>
 
-    <a class="button" href="#create">CREATE YOUR CHARACTER →</a>
-  </div>
-</section>
-
-<section class="seianna" id="characters">
-  <div class="character-box">
-    <div class="character-label">MEET THE UNIVERSE</div>
-
-    <h2>Seianna Monroe</h2>
-
-    <p>
-      Fashion. Motorcycles. Freedom. And a past she doesn't talk about.
-      Seianna is more than a character — she's the beginning of a story.
+    <p style="margin-top: 8px;">
+      © 2026 StoryForge AI. All rights reserved.
     </p>
 
-    <div class="tags">
-      <div class="tag">Fashion</div>
-      <div class="tag">Motorcycles</div>
-      <div class="tag">Adventure</div>
-      <div class="tag">Drama</div>
-      <div class="tag">Mystery</div>
-    </div>
-  </div>
-</section>
+  </footer>
 
-<section id="stories">
-  <div class="section-title">
-    <div class="small">CREATE WITHOUT LIMITS</div>
-    <h2>Bring Your Ideas to Life</h2>
-    <p>One character can become an entire universe.</p>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">✦</div>
-      <h3>Characters</h3>
-      <p>
-        Build detailed AI characters with personalities, histories,
-        goals, relationships and memories.
-      </p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">◈</div>
-      <h3>Stories</h3>
-      <p>
-        Turn your characters into episodes, scenes, adventures,
-        drama and unforgettable stories.
-      </p>
-    </div>
-
-    <div class="card">
-      <div class="card-icon">◇</div>
-      <h3>Content</h3>
-      <p>
-        Transform your stories into social posts, captions,
-        scripts, hooks and content ideas.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<section>
-  <div class="section-title">
-    <div class="small">THE STORYFORGE METHOD</div>
-    <h2>From One Idea to an Entire Universe</h2>
-  </div>
-
-  <div class="steps">
-
-    <div class="step">
-      <div class="number">1</div>
-      <h3>Create</h3>
-      <p>Build your character and define their world.</p>
-    </div>
-
-    <div class="step">
-      <div class="number">2</div>
-      <h3>Generate</h3>
-      <p>Turn your ideas into stories and episodes.</p>
-    </div>
-
-    <div class="step">
-      <div class="number">3</div>
-      <h3>Visualize</h3>
-      <p>Bring characters and scenes to life.</p>
-    </div>
-
-    <div class="step">
-      <div class="number">4</div>
-      <h3>Share</h3>
-      <p>Turn your universe into content people want to follow.</p>
-    </div>
-
-  </div>
-</section>
-
-<section class="cta" id="create">
-  <div class="small">YOUR UNIVERSE STARTS HERE</div>
-
-  <h2>What will you create?</h2>
-
-  <p>
-    Create a character. Write a story. Build a universe.
-    Your imagination is the beginning.
-  </p>
-
-  <a class="button" href="#">START CREATING →</a>
-</section>
-
-<footer>
-  © 2026 StoryForge AI — Your Story. Your Character. Your Universe.
-</footer>
 
 </body>
 </html>
