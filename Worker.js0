@@ -1,0 +1,159 @@
+// StoryForge AI backend (Cloudflare Worker)
+// Keeps your API key secret. The website sends the form here,
+// this calls Claude, and returns the finished AI persona as JSON.
+//
+// Secret needed:  ANTHROPIC_API_KEY  (add in Cloudflare: Settings → Variables and Secrets)
+
+// Only your site may use this backend. Add your custom domain here later.
+const ALLOWED_ORIGINS = [
+  "https://markitonce89.github.io",
+];
+
+const MODEL = "claude-sonnet-5";
+
+function cors(origin) {
+  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
+
+function json(body, status, origin) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", ...cors(origin) },
+  });
+}
+
+// Trim and cap every field so nobody can send huge requests.
+function clean(value, max) {
+  return String(value ?? "").trim().slice(0, max);
+}
+
+export default {
+  async fetch(request, env) {
+    const origin = request.headers.get("Origin") || "";
+    const url = new URL(request.url);
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, { headers: cors(origin) });
+    }
+    if (!ALLOWED_ORIGINS.includes(origin)) {
+      return json({ error: "Not allowed." }, 403, origin);
+    }
+    if (request.method !== "POST" || url.pathname !== "/persona") {
+      return json({ error: "Not found." }, 404, origin);
+    }
+
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return json({ error: "Invalid request." }, 400, origin);
+    }
+
+    const c = {
+      platform: clean(body.platform, 40),
+      niche: clean(body.niche, 120),
+      audience: clean(body.audience, 200),
+      name: clean(body.name, 80),
+      age: clean(body.age, 10),
+      occupation: clean(body.occupation, 120),
+      personality: clean(body.personality, 200),
+      appearance: clean(body.appearance, 1500),
+      backstory: clean(body.backstory, 2000),
+      goals: clean(body.goals, 800),
+      fears: clean(body.fears, 800),
+      vibe: clean(body.vibe, 200),
+    };
+    if (!c.name) return json({ error: "A persona name is required." }, 400, origin);
+
+    const prompt = `You are StoryForge AI. You design original AI personas for faceless social media accounts:
+a fictional character the creator posts as, with a consistent look, voice and an ongoing storyline.
+
+Develop a complete persona from the creator's notes below. Keep everything they provided,
+expand on it, and invent anything left blank. Keep it original (not based on a real person
+or celebrity) and suitable for mainstream social media.
+
+The profile bio MUST include a short, clear line saying the persona is AI-generated
+(for example "AI-generated persona" or "Virtual creator"), because major platforms require it.
+
+Creator's notes:
+Main platform: ${c.platform || "Instagram"}
+Niche: ${c.niche || "(invent)"}
+Target audience: ${c.audience || "(invent)"}
+Name: ${c.name}
+Age: ${c.age || "(invent)"}
+Occupation: ${c.occupation || "(invent)"}
+Personality: ${c.personality || "(invent)"}
+Appearance: ${c.appearance || "(invent)"}
+Backstory: ${c.backstory || "(invent)"}
+Goals: ${c.goals || "(invent)"}
+Fears: ${c.fears || "(invent)"}
+Style & vibe: ${c.vibe || "(invent)"}
+
+Respond with ONLY a JSON object, no markdown, in exactly this shape:
+{
+  "name": string,
+  "tagline": string (one punchy line),
+  "age": string,
+  "occupation": string,
+  "niche": string,
+  "audience": string,
+  "traits": [4-6 short personality traits],
+  "quote": string (something they would say, in their voice),
+  "bio": string (profile bio sized for the platform, including the AI-generated line),
+  "content_pillars": [3-4 recurring content themes],
+  "posting_voice": string (how they write captions: tone, length, emoji and hashtag habits),
+  "appearance": string (one vivid paragraph),
+  "image_prompt": string (a detailed, reusable image-generation description of their face, hair, build and signature style, written so every image looks like the same person),
+  "backstory": string (two short paragraphs),
+  "goals": string,
+  "fears": string,
+  "secret": string (something they hide, revealed slowly to followers),
+  "storyline": string (the ongoing story arc followers will follow over the next few months),
+  "episodes": [5 objects: {"title": string, "summary": string}, each one chapter of the storyline told through posts],
+  "first_posts": [5 objects: {"hook": string (first line or on-screen text), "caption": string (full caption in their voice, with hashtags), "visual": string (what the photo or video shows)}]
+}`;
+
+    let aiRes;
+    try {
+      aiRes = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": env.ANTHROPIC_API_KEY,
+          "anthropic-version": "2023-06-01",
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          max_tokens: 4000,
+          messages: [{ role: "user", content: prompt }],
+        }),
+      });
+    } catch {
+      return json({ error: "Couldn't reach the AI. Try again." }, 502, origin);
+    }
+
+    if (!aiRes.ok) {
+      return json({ error: "The AI is busy right now. Try again in a moment." }, 502, origin);
+    }
+
+    const data = await aiRes.json();
+    const text = (data.content || [])
+      .filter((b) => b.type === "text")
+      .map((b) => b.text)
+      .join("")
+      .replace(/```json|```/g, "")
+      .trim();
+
+    try {
+      const persona = JSON.parse(text);
+      return json({ persona }, 200, origin);
+    } catch {
+      return json({ error: "The AI returned something unexpected. Try again." }, 502, origin);
+    }
+  },
+};
