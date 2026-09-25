@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Gallery | StoryForge AI</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(174, 70, 255, .16), transparent 35%),
+    #08070d;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+nav {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  border-bottom: 1px solid #25202d;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo span {
+  color: #c55cff;
+}
+
+.navlinks {
+  display: flex;
+  gap: 22px;
+}
+
+.navlinks a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.navlinks a:hover {
+  color: #fff;
+}
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 55px auto 80px;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.intro small {
+  color: #c55cff;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+
+.intro h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(40px, 8vw, 70px);
+  margin: 15px 0;
+}
+
+.intro p {
+  color: #aaa;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: rgba(20, 17, 28, .95);
+  border: 1px solid #30283b;
+  border-radius: 22px;
+  padding: 26px;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: #8e44ad;
+  outline: none;
+}
+
+.card h2 {
+  font-family: Georgia, serif;
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.card .tagline {
+  color: #c77dff;
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+.card .meta {
+  color: #9999a8;
+  font-size: 13px;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  border: 1px dashed #49305b;
+  border-radius: 22px;
+  padding: 50px 24px;
+  color: #aaa;
+}
+
+.empty.show {
+  display: block;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 14px 24px;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #9d3cff, #d84cff);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ---------- Detail view ---------- */
+
+.detail {
+  display: none;
+  background: rgba(20, 17, 28, .95);
+  border: 1px solid #49305b;
+  border-radius: 22px;
+  padding: 36px;
+}
+
+.detail.show {
+  display: block;
+}
+
+.detail h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(34px, 6vw, 54px);
+  line-height: 1.05;
+}
+
+.detail .tagline {
+  color: #c77dff;
+  font-style: italic;
+  margin: 10px 0 18px;
+  font-size: 17px;
+}
+
+.detail .meta {
+  color: #9999a8;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.tag {
+  border: 1px solid #49305b;
+  padding: 7px 13px;
+  border-radius: 20px;
+  color: #d6b7e8;
+  font-size: 13px;
+}
+
+.quote {
+  border-left: 3px solid #c55cff;
+  padding: 8px 0 8px 18px;
+  font-family: Georgia, serif;
+  font-size: 19px;
+  color: #eee;
+  margin-bottom: 26px;
+}
+
+.block {
+  margin-bottom: 24px;
+}
+
+.block h3 {
+  color: #d084ff;
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.block p,
+.block li {
+  color: #c9c9d4;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.block ul {
+  padding-left: 20px;
+}
+
+.bio {
+  white-space: pre-wrap;
+  background: #0d0b13;
+  border: 1px solid #30283b;
+  border-radius: 14px;
+  padding: 16px;
+  color: #eee;
+}
+
+.post {
+  border: 1px solid #30283b;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 12px;
+  background: #0d0b13;
+}
+
+.post .hook {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.post .caption {
+  color: #c9c9d4;
+  white-space: pre-wrap;
+  margin-bottom: 8px;
+}
+
+.post .visual {
+  color: #9999a8;
+  font-size: 14px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 15px;
+  border-radius: 30px;
+  background: transparent;
+  border: 1px solid #49305b;
+  color: #d6b7e8;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: #c55cff;
+}
+
+.btn.danger {
+  color: #ff8a9a;
+  border-color: #5b3040;
+}
+
+@media (max-width: 650px) {
+  nav {
+    padding: 0 5%;
+  }
+
+  .navlinks a.hide-mobile {
+    display: none;
+  }
+
+  .container {
+    margin-top: 35px;
+  }
+
+  .grid,
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .detail {
+    padding: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a class="logo" href="index.html">StoryForge<span>AI</span></a>
+  <div class="navlinks">
+    <a class="hide-mobile" href="index.html">Home</a>
+    <a href="create.html">Create</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <section class="intro" id="intro">
+    <small>YOUR GALLERY</small>
+    <h1>Your Personas.</h1>
+    <p>Every persona you save lives here. Tap one to see their full profile, storyline and posts.</p>
+  </section>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="empty" id="empty">
+    <p>You haven't saved any personas yet.</p>
+    <a class="button" href="create.html">CREATE YOUR FIRST PERSONA →</a>
+  </div>
+
+  <section class="detail" id="detail" aria-live="polite">
+    <h2 id="dName"></h2>
+    <div class="tagline" id="dTagline"></div>
+    <div class="meta" id="dMeta"></div>
+    <div class="tags" id="dTraits"></div>
+    <div class="quote" id="dQuote"></div>
+    <div id="dBlocks"></div>
+
+    <div class="actions">
+      <button class="btn" id="backBtn" type="button">← All Personas</button>
+      <button class="btn" id="copyBtn" type="button">Copy Text</button>
+      <button class="btn danger" id="deleteBtn" type="button">Delete</button>
+    </div>
+  </section>
+
+  <p style="text-align:center;color:#666;font-size:12px;margin-top:30px;">
+    Saved in this browser only. Clearing your browser data will remove them.
+  </p>
+
+</main>
